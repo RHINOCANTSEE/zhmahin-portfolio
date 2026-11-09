@@ -8,6 +8,8 @@ export interface MetricItem {
   label: string;
   context: string;
   tag: string;
+  chartWidth: string; 
+  chartColor: string;
 }
 
 export interface PillarItem {
@@ -42,6 +44,17 @@ export interface CaseStudy {
   challenge: string;
   execution: string[];
   metrics: { label: string; value: string }[];
+}
+
+export interface ArchiveItem {
+  id: string;
+  title: string;
+  category: string;
+  metric: string;
+  thumbnail: string;
+  date: string;
+  platform?: string;
+  link?: string;
 }
 
 export interface PortfolioSchema {
@@ -84,6 +97,10 @@ export interface PortfolioSchema {
   };
   multiGameOps: MultiGameRecord[];
   caseStudies: CaseStudy[];
+  archive: {
+    projects: ArchiveItem[];
+    contents: ArchiveItem[];
+  };
 }
 
 export const portfolioData: PortfolioSchema = {
@@ -176,25 +193,33 @@ export const portfolioData: PortfolioSchema = {
         metric: "170M+",
         label: "Peak Regional Reach",
         context: "Aggregate campaign and seasonal tournament audience footprint",
-        tag: "AUDITED"
+        tag: "AUDITED",
+        chartWidth: "92%", 
+        chartColor: "bg-cyan-400"
       },
       {
         metric: "1B+",
         label: "Lifetime Views",
         context: "Across short-form reels, match highlights, and live broadcasts",
-        tag: "VERIFIED"
+        tag: "VERIFIED",
+        chartWidth: "100%", 
+        chartColor: "bg-emerald-400"
       },
       {
         metric: "3,000%",
         label: "Conversion Lift",
         context: "Optimized deep-link routing for team registrations",
-        tag: "BENCHMARK"
+        tag: "BENCHMARK",
+        chartWidth: "85%", 
+        chartColor: "bg-amber-400"
       },
       {
         metric: "450K+",
         label: "Community Interactions",
         context: "Grassroots comments, discussion threads, and meetup registrations",
-        tag: "ORGANIC"
+        tag: "ORGANIC",
+        chartWidth: "70%", 
+        chartColor: "bg-purple-400"
       }
     ],
     pillars: [
@@ -333,5 +358,27 @@ export const portfolioData: PortfolioSchema = {
         { label: "Community Reception", value: "Trended #1" }
       ]
     }
-  ]
+  ],
+  archive: {
+    projects: [
+      { id: "PRJ-01", title: "PMNC BD Fall 2026 Grand Finals", category: "Esports Broadcast", metric: "3x Viewership Lift", date: "Sep 2026", thumbnail: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80" },
+      { id: "PRJ-02", title: "Operation Green Winter & Bondhu Adda", category: "CSR & Community", metric: "10,000+ Attendees", date: "Winter 2025", thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80" },
+      { id: "PRJ-03", title: "PUBGM x Chillox Victory Meal", category: "F&B Partnership", metric: "+28% Redemptions", date: "Fall 2026", thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80" },
+      { id: "PRJ-04", title: "HOK Regional Launch Support", category: "Ecosystem Ops", metric: "Cross-Guild Growth", date: "Mid 2026", thumbnail: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&q=80" },
+      { id: "PRJ-05", title: "MLBB Champions Battle Reg", category: "Tournament Ops", metric: "200+ Squads", date: "Spring 2026", thumbnail: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=800&q=80" },
+      { id: "PRJ-06", title: "Free Fire Campus Clash", category: "Grassroots Event", metric: "15 Campuses", date: "Early 2026", thumbnail: "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&q=80" },
+      { id: "PRJ-07", title: "Infinix Hardware Promo Setup", category: "Hardware Alliance", metric: "+15% CTR", date: "Late 2025", thumbnail: "https://images.unsplash.com/photo-1526509867162-5b0c0d1b4b33?w=800&q=80" },
+      { id: "PRJ-08", title: "Robi Axiata Data Pack Campaign", category: "Telecom Promo", metric: "5M+ Reach", date: "2025", thumbnail: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80" }
+    ],
+    contents: [
+      { id: "CNT-01", title: "The 3-Second Tactical Hook", category: "Short-form Reel", metric: "4.8x Retention", platform: "TikTok / Reels", date: "Aug 2026", thumbnail: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=800&q=80" },
+      { id: "CNT-02", title: "Squad Clutch vs Pan Panic", category: "Community Meme", metric: "310% Share Multiplier", platform: "Facebook", date: "Jul 2026", thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80" },
+      { id: "CNT-03", title: "Final Zone Rotational Breakdown", category: "Interactive Debate", metric: "520% Comment Vel.", platform: "YouTube", date: "Sep 2026", thumbnail: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80" },
+      { id: "CNT-04", title: "Patch Notes Vernacular Dub", category: "Localization Video", metric: "1.2M Views", platform: "Facebook", date: "Jun 2026", thumbnail: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&q=80" },
+      { id: "CNT-05", title: "Caster Couch Pre-Show", category: "Live Broadcast Segment", metric: "Peak 50K CCV", platform: "YouTube", date: "Aug 2026", thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80" },
+      { id: "CNT-06", title: "Weapon Skin Trailer Relight", category: "3D Asset Edit", metric: "+45% Watch Time", platform: "TikTok / Reels", date: "May 2026", thumbnail: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=800&q=80" },
+      { id: "CNT-07", title: "FMVP Montage Post-Match", category: "Highlight Edit", metric: "<8 Min TAT", platform: "All Platforms", date: "Sep 2026", thumbnail: "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=800&q=80" },
+      { id: "CNT-08", title: "Bondhu Adda Dhaka Vlog", category: "Event Coverage", metric: "800K Organic Reach", platform: "YouTube", date: "Dec 2025", thumbnail: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=800&q=80" }
+    ]
+  }
 };
