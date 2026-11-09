@@ -13,14 +13,10 @@ import {
   CheckCircle2,
   Mail,
   MapPin,
-  Cpu,
+  Cpu
 } from 'lucide-react';
 import { portfolioData } from './data/portfolioData';
 
-/**
- * Main application dashboard for Zahidul Hasan Mahin's portfolio.
- * Engineered for tactical visual pacing, accessible navigation, and strict type safety.
- */
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [timeUTC, setTimeUTC] = useState<string>('');
@@ -48,11 +44,8 @@ export default function App() {
       <nav 
         className="sticky top-0 z-50 bg-[#08090D]/95 backdrop-blur-md border-b border-[#1A1F2E]"
         role="navigation"
-        aria-label="Main Navigation"
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          
-          {/* Operator Callsign Identifier */}
           <a href="#" className="flex items-center gap-3 group focus-visible:outline-cyan-400">
             <div className="w-8 h-8 bg-cyan-950/60 border border-cyan-500/40 rounded flex items-center justify-center font-mono text-cyan-400 font-bold group-hover:border-cyan-400 group-hover:scale-105 transition-all">
               <Cpu size={16} />
@@ -67,7 +60,6 @@ export default function App() {
             </div>
           </a>
 
-          {/* Desktop Anchor Links */}
           <div className="hidden md:flex items-center gap-7 font-mono text-xs uppercase tracking-wider text-slate-400">
             <a href="#about" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Who Am I?</a>
             <a href="#why-me" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Solutions</a>
@@ -77,35 +69,24 @@ export default function App() {
             <a href="#multi-game" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Cross-Title</a>
           </div>
 
-          {/* Clock & Comms Button */}
           <div className="hidden md:flex items-center gap-4">
-            <div 
-              className="font-mono text-[11px] text-slate-400 bg-[#0D1017] border border-[#1A1F2E] px-3 py-1.5 flex items-center gap-2"
-              aria-label="Current System Time"
-            >
+            <div className="font-mono text-[11px] text-slate-400 bg-[#0D1017] border border-[#1A1F2E] px-3 py-1.5 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>{timeUTC}</span>
             </div>
-            <a 
-              href="#contact" 
-              className="bg-cyan-500 text-[#08090D] font-mono text-xs font-bold px-4 py-2 hover:bg-cyan-400 transition-all uppercase tracking-wider rounded-sm flex items-center gap-1.5 focus-visible:outline-cyan-400"
-            >
+            <a href="#contact" className="bg-cyan-500 text-[#08090D] font-mono text-xs font-bold px-4 py-2 hover:bg-cyan-400 transition-all uppercase tracking-wider rounded-sm flex items-center gap-1.5 focus-visible:outline-cyan-400">
               <Terminal size={14} /> Open Channel
             </a>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
             className="md:hidden text-slate-300 hover:text-cyan-400 p-2 focus-visible:outline-cyan-400"
-            aria-label="Toggle mobile menu"
-            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
-        {/* Mobile Navigation Dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-[#0D1017] border-b border-[#1A1F2E] px-6 py-6 font-mono text-xs uppercase tracking-wider flex flex-col gap-4">
             <a onClick={() => setMobileMenuOpen(false)} href="#about" className="text-slate-300 hover:text-cyan-400 py-1">Who Am I?</a>
@@ -121,13 +102,10 @@ export default function App() {
         )}
       </nav>
 
-      {/* Main Content Layout */}
       <main className="max-w-7xl mx-auto px-6 py-12 relative z-10 flex flex-col gap-28 md:gap-36">
         
         {/* 2. CALIBRATED SPLIT HERO SECTION */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-2">
-          
-          {/* Left Column: Operator Bio & Headline */}
           <div className="lg:col-span-7 flex flex-col">
             <div className="flex flex-wrap items-center gap-3 mb-6 font-mono text-xs">
               <span className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
@@ -162,31 +140,22 @@ export default function App() {
             </div>
 
             <div className="flex flex-wrap gap-4 font-mono text-xs">
-              <a 
-                href="#contact" 
-                className="bg-cyan-500 text-[#08090D] border border-cyan-400 px-6 py-3.5 font-bold hover:bg-cyan-400 transition-all flex items-center gap-2 uppercase tracking-wider shadow-lg shadow-cyan-500/10 focus-visible:outline-cyan-400"
-              >
+              <a href="#contact" className="bg-cyan-500 text-[#08090D] border border-cyan-400 px-6 py-3.5 font-bold hover:bg-cyan-400 transition-all flex items-center gap-2 uppercase tracking-wider shadow-lg shadow-cyan-500/10 focus-visible:outline-cyan-400">
                 <Terminal size={16} /> Deploy Strategy Call
               </a>
-              <a 
-                href="#case-studies" 
-                className="bg-[#0D1017] border border-[#1A1F2E] text-slate-300 px-6 py-3.5 hover:border-cyan-500/50 hover:text-white transition-all flex items-center gap-2 uppercase tracking-wider focus-visible:outline-cyan-400"
-              >
+              <a href="#case-studies" className="bg-[#0D1017] border border-[#1A1F2E] text-slate-300 px-6 py-3.5 hover:border-cyan-500/50 hover:text-white transition-all flex items-center gap-2 uppercase tracking-wider focus-visible:outline-cyan-400">
                 <Layers size={16} className="text-cyan-400" /> Review Case Files
               </a>
             </div>
           </div>
 
-          {/* Right Column: Tactical Portrait HUD (1048x2000 Aspect Calibrated) */}
           <div className="lg:col-span-5 flex justify-center">
             <div className="w-full max-w-[340px] relative border border-[#1A1F2E] bg-[#0D1017] p-2.5 shadow-2xl">
-              {/* Corner Brackets */}
               <div className="absolute -top-1.5 -left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-cyan-400"></div>
               <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 border-t-2 border-r-2 border-cyan-400"></div>
               <div className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 border-b-2 border-l-2 border-cyan-400"></div>
               <div className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 border-b-2 border-r-2 border-cyan-400"></div>
 
-              {/* HUD Header */}
               <div className="bg-[#08090D] border-b border-[#1A1F2E] px-4 py-2 flex items-center justify-between font-mono text-[11px] text-slate-400 mb-2">
                 <span className="text-cyan-400 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -195,18 +164,14 @@ export default function App() {
                 <span>STATUS: VERIFIED</span>
               </div>
 
-              {/* Calibrated 1048:2000 Container */}
               <div className="relative w-full aspect-portrait-hud overflow-hidden bg-[#08090D] border border-[#1A1F2E]/80">
                 <img 
                   src="/avatar.jpg" 
                   alt={portfolioData.operator.name}
                   className="w-full h-full object-cover object-top filter grayscale contrast-110 hover:grayscale-0 transition-all duration-700"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
                 
-                {/* HUD Telemetry Bar */}
                 <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between font-mono text-[9px] text-cyan-300 bg-[#08090D]/85 backdrop-blur-md px-2 py-1 border border-cyan-500/30">
                   <span>{portfolioData.operator.coordinates}</span>
                   <span className="text-slate-500">|</span>
@@ -214,7 +179,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* HUD Footer */}
               <div className="bg-[#08090D] border-t border-[#1A1F2E] px-4 py-2 mt-2 flex items-center justify-between font-mono text-[10px] text-slate-500">
                 <span>SECURITY: AUDITED</span>
                 <span className="text-emerald-400">SYS_NOMINAL 60FPS</span>
@@ -224,11 +188,7 @@ export default function App() {
         </section>
 
         {/* 3. DUAL SEAMLESS INFINITE MARQUEES */}
-        <section 
-          className="border-y border-[#1A1F2E] py-6 bg-[#0A0C11] overflow-hidden space-y-4 marquee-container"
-          aria-label="Franchises and Strategic Alliances"
-        >
-          {/* Row 1: Game Franchises */}
+        <section className="border-y border-[#1A1F2E] py-6 bg-[#0A0C11] overflow-hidden space-y-4 marquee-container">
           <div className="flex items-center gap-4">
             <div className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest shrink-0 w-36 pl-4 border-r border-[#1A1F2E]">
               [ FRANCHISES ]
@@ -246,7 +206,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Row 2: Publishers & Brand Partners */}
           <div className="flex items-center gap-4">
             <div className="font-mono text-[10px] text-amber-500 uppercase tracking-widest shrink-0 w-36 pl-4 border-r border-[#1A1F2E]">
               [ ALLIANCES ]
@@ -266,11 +225,11 @@ export default function App() {
         </section>
 
         {/* 4. WHO AM I? (OPERATOR DOSSIER) */}
-        <section id="about" className="scroll-mt-24" aria-labelledby="heading-about">
+        <section id="about" className="scroll-mt-24">
           <div className="flex items-center gap-3 font-mono text-xs text-cyan-400 uppercase tracking-widest mb-4">
             <Compass size={16} /> 01 // OPERATOR IDENTITY
           </div>
-          <h2 id="heading-about" className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-8">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-8">
             Leadership Behind The Production Desk
           </h2>
           
@@ -306,11 +265,11 @@ export default function App() {
         </section>
 
         {/* 5. WHY ME? (SOLUTIONS MATRIX) */}
-        <section id="why-me" className="scroll-mt-24" aria-labelledby="heading-solutions">
+        <section id="why-me" className="scroll-mt-24">
           <div className="flex items-center gap-3 font-mono text-xs text-amber-500 uppercase tracking-widest mb-4">
             <Zap size={16} /> 02 // SOLUTIONS ARCHITECTURE
           </div>
-          <h2 id="heading-solutions" className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
             What You Can Expect From Me
           </h2>
           <p className="text-slate-400 max-w-3xl mb-12">
@@ -348,18 +307,17 @@ export default function App() {
         </section>
 
         {/* 6. WHAT I DID ON PUBG MOBILE BD */}
-        <section id="pubgm" className="scroll-mt-24" aria-labelledby="heading-pubgm">
+        <section id="pubgm" className="scroll-mt-24">
           <div className="flex items-center gap-3 font-mono text-xs text-cyan-400 uppercase tracking-widest mb-4">
             <Trophy size={16} /> 03 // PRIMARY ECOSYSTEM
           </div>
-          <h2 id="heading-pubgm" className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
             {portfolioData.pubgmBD.headline}
           </h2>
           <p className="text-slate-400 max-w-3xl mb-12">
             Managing marketing campaigns, localization, creative direction, and community operations for the premier mobile battle royale title in Bangladesh.
           </p>
 
-          {/* Metric Telemetry Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {portfolioData.pubgmBD.metrics.map((m, idx) => (
               <div key={idx} className="bg-[#0D1017] border border-[#1A1F2E] p-6 relative">
@@ -379,7 +337,6 @@ export default function App() {
             ))}
           </div>
 
-          {/* Operational Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {portfolioData.pubgmBD.pillars.map((p, idx) => (
               <div key={idx} className="bg-[#0A0C11] border border-[#1A1F2E] p-6">
@@ -391,12 +348,12 @@ export default function App() {
           </div>
         </section>
 
-        {/* 7. ORGANIC CONTENT LAB & IDEATION STUDIES */}
-        <section id="organic-lab" className="scroll-mt-24" aria-labelledby="heading-organic">
+        {/* 7. ORGANIC CONTENT LAB */}
+        <section id="organic-lab" className="scroll-mt-24">
           <div className="flex items-center gap-3 font-mono text-xs text-emerald-400 uppercase tracking-widest mb-4">
             <Flame size={16} /> 04 // ORGANIC DISTRIBUTION
           </div>
-          <h2 id="heading-organic" className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
             {portfolioData.organicLab.title}
           </h2>
           <p className="text-slate-400 max-w-3xl mb-12">
@@ -438,11 +395,11 @@ export default function App() {
         </section>
 
         {/* 8. MULTI-TITLE EXPANSION */}
-        <section id="multi-game" className="scroll-mt-24" aria-labelledby="heading-multigame">
+        <section id="multi-game" className="scroll-mt-24">
           <div className="flex items-center gap-3 font-mono text-xs text-cyan-400 uppercase tracking-widest mb-4">
             <Layers size={16} /> 05 // CROSS-TITLE ECOSYSTEM
           </div>
-          <h2 id="heading-multigame" className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
             Multi-Game Operations
           </h2>
           <p className="text-slate-400 max-w-3xl mb-12">
@@ -473,15 +430,15 @@ export default function App() {
         </section>
 
         {/* 9. BATTLE-TESTED CASE STUDIES */}
-        <section id="case-studies" className="scroll-mt-24" aria-labelledby="heading-casestudies">
+        <section id="case-studies" className="scroll-mt-24">
           <div className="flex items-center gap-3 font-mono text-xs text-amber-500 uppercase tracking-widest mb-4">
             <ShieldCheck size={16} /> 06 // CASE STUDIES
           </div>
-          <h2 id="heading-casestudies" className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
             Battle-Tested Project Case Files
           </h2>
           <p className="text-slate-400 max-w-3xl mb-12">
-            Real campaign blueprints executed under real pressure. Zero hypothetical portfolio samples[cite: 16, 17].
+            Real campaign blueprints executed under real pressure. Zero hypothetical portfolio samples.
           </p>
 
           <div className="space-y-12">
@@ -522,7 +479,6 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Audited Result Counters */}
                   <div className="border-t border-[#1A1F2E] pt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
                     {cs.metrics.map((m, idx) => (
                       <div key={idx} className="bg-[#0A0C11] border border-[#1A1F2E] p-4 text-center">
@@ -538,7 +494,7 @@ export default function App() {
         </section>
 
         {/* 10. DIRECT COMMS & CONTACT TERMINAL */}
-        <section id="contact" className="scroll-mt-24 mb-16" aria-labelledby="heading-contact">
+        <section id="contact" className="scroll-mt-24 mb-16">
           <div className="border border-cyan-500/40 bg-[#0D1017] p-8 sm:p-12 relative">
             <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400"></div>
             <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400"></div>
@@ -547,7 +503,7 @@ export default function App() {
               <div className="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                 <Terminal size={14} /> 07 // DIRECT COMMS CHANNEL
               </div>
-              <h2 id="heading-contact" className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-6">
+              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-6">
                 Initiate Operations Dialogue
               </h2>
               <p className="text-slate-300 leading-relaxed mb-8 text-base">
@@ -555,10 +511,7 @@ export default function App() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <a 
-                  href={`mailto:${portfolioData.operator.email}`} 
-                  className="bg-cyan-500 text-[#08090D] font-mono text-sm font-bold px-8 py-4 hover:bg-cyan-400 transition-all flex items-center justify-center gap-2 uppercase tracking-wider focus-visible:outline-cyan-400"
-                >
+                <a href={`mailto:${portfolioData.operator.email}`} className="bg-cyan-500 text-[#08090D] font-mono text-sm font-bold px-8 py-4 hover:bg-cyan-400 transition-all flex items-center justify-center gap-2 uppercase tracking-wider focus-visible:outline-cyan-400">
                   <Mail size={18} /> {portfolioData.operator.email}
                 </a>
                 <div className="flex items-center justify-center px-6 py-4 border border-[#1A1F2E] text-slate-400 font-mono text-xs bg-[#08090D]">
@@ -578,7 +531,6 @@ export default function App() {
 
       </main>
 
-      {/* Footer Strip */}
       <footer className="border-t border-[#1A1F2E] py-8 bg-[#08090D] font-mono text-xs text-slate-500 text-center">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div>© 2026 {portfolioData.operator.name}. ALL SYSTEM TELEMETRY VERIFIED.</div>
