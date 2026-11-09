@@ -13,26 +13,47 @@ import {
   CheckCircle2,
   Mail,
   MapPin,
-  Cpu
+  Cpu,
+  BarChart3,
+  Database,
+  ArrowUpRight
 } from 'lucide-react';
 import { portfolioData } from './data/portfolioData';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [timeUTC, setTimeUTC] = useState<string>('');
+  
+  // Archive Modal State
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalView, setModalView] = useState<'projects' | 'contents'>('projects');
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date();
-      setTimeUTC(now.toISOString().substring(11, 19) + ' UTC');
+      setTimeUTC(new Date().toISOString().substring(11, 19) + ' UTC');
     };
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
+  }, [isModalOpen]);
+
+  const openArchive = (view: 'projects' | 'contents') => {
+    setModalView(view);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#08090D] text-slate-300 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200 relative overflow-x-hidden">
+      
+      {/* AMBIENT LIFE: Glowing background blobs */}
+      <div className="fixed top-0 left-1/4 w-96 h-96 bg-cyan-900/15 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-emerald-900/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
       
       {/* Background Visual Grid & Scanline Effect */}
       <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
@@ -41,13 +62,10 @@ export default function App() {
       </div>
 
       {/* 1. STICKY TACTICAL HUD NAVIGATION */}
-      <nav 
-        className="sticky top-0 z-50 bg-[#08090D]/95 backdrop-blur-md border-b border-[#1A1F2E]"
-        role="navigation"
-      >
+      <nav className="sticky top-0 z-40 bg-[#08090D]/80 backdrop-blur-xl border-b border-[#1A1F2E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
           <a href="#" className="flex items-center gap-3 group focus-visible:outline-cyan-400">
-            <div className="w-8 h-8 bg-cyan-950/60 border border-cyan-500/40 rounded flex items-center justify-center font-mono text-cyan-400 font-bold group-hover:border-cyan-400 group-hover:scale-105 transition-all">
+            <div className="w-8 h-8 bg-cyan-950/60 border border-cyan-500/40 rounded flex items-center justify-center font-mono text-cyan-400 font-bold group-hover:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all">
               <Cpu size={16} />
             </div>
             <div>
@@ -62,26 +80,22 @@ export default function App() {
 
           <div className="hidden md:flex items-center gap-7 font-mono text-xs uppercase tracking-wider text-slate-400">
             <a href="#about" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Who Am I?</a>
-            <a href="#why-me" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Solutions</a>
-            <a href="#pubgm" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">PUBGM Ops</a>
-            <a href="#organic-lab" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Organic Lab</a>
+            <a href="#pubgm" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Data Viz</a>
+            <a href="#archive" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Ledger</a>
             <a href="#case-studies" className="hover:text-cyan-400 transition-colors focus-visible:outline-cyan-400">Case Files</a>
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-            <div className="font-mono text-[11px] text-slate-400 bg-[#0D1017] border border-[#1A1F2E] px-3 py-1.5 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <div className="font-mono text-[11px] text-slate-400 bg-[#0D1017]/80 backdrop-blur-md border border-[#1A1F2E] px-3 py-1.5 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
               <span>{timeUTC}</span>
             </div>
-            <a href="#contact" className="bg-cyan-500 text-[#08090D] font-mono text-xs font-bold px-4 py-2 hover:bg-cyan-400 transition-all uppercase tracking-wider rounded-sm flex items-center gap-1.5 focus-visible:outline-cyan-400">
+            <a href="#contact" className="bg-cyan-500 text-[#08090D] font-mono text-xs font-bold px-4 py-2 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all uppercase rounded-sm flex items-center gap-1.5 focus-visible:outline-cyan-400">
               <Terminal size={14} /> Open Channel
             </a>
           </div>
 
-          <button 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-            className="md:hidden text-slate-300 hover:text-cyan-400 p-2 focus-visible:outline-cyan-400"
-          >
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-slate-300 hover:text-cyan-400 p-2 focus-visible:outline-cyan-400">
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
@@ -91,12 +105,12 @@ export default function App() {
           <div className="md:hidden absolute top-16 left-0 w-full bg-[#08090D]/95 backdrop-blur-xl border-b border-[#1A1F2E] px-4 py-6 font-mono text-xs uppercase tracking-wider flex flex-col gap-4 shadow-2xl z-50">
             <a onClick={() => setMobileMenuOpen(false)} href="#about" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Who Am I?</a>
             <a onClick={() => setMobileMenuOpen(false)} href="#why-me" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Solutions</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#pubgm" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">PUBGM Ops</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#organic-lab" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Organic Lab</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#pubgm" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Data Viz</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#archive" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Tactical Ledger</a>
             <a onClick={() => setMobileMenuOpen(false)} href="#case-studies" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Case Files</a>
             <a onClick={() => setMobileMenuOpen(false)} href="#multi-game" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Cross-Title</a>
             <a onClick={() => setMobileMenuOpen(false)} href="#contact" className="text-cyan-400 font-bold py-3 mt-2 bg-cyan-950/30 border border-cyan-800/50 flex items-center justify-center gap-2">
-              <Terminal size={14} /> Deploy Strategy Call
+              <Terminal size={14} /> Open Channel
             </a>
           </div>
         )}
@@ -106,9 +120,9 @@ export default function App() {
         
         {/* 2. CALIBRATED SPLIT HERO SECTION */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center pt-2">
-          <div className="lg:col-span-7 flex flex-col order-2 lg:order-1">
+          <div className="lg:col-span-7 flex flex-col order-2 lg:order-1 relative">
             <div className="flex flex-wrap items-center gap-3 mb-6 font-mono text-[10px] sm:text-xs">
-              <span className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+              <span className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 uppercase tracking-widest font-semibold flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
                 {portfolioData.operator.clearance}
               </span>
@@ -119,7 +133,7 @@ export default function App() {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-tight sm:leading-[0.92] mb-4">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-tight sm:leading-[0.92] mb-4 text-shadow-sm">
               {portfolioData.operator.name}
             </h1>
             
@@ -131,9 +145,9 @@ export default function App() {
               {portfolioData.operator.secondaryRole}
             </p>
 
-            <div className="bg-[#0D1017] border border-[#1A1F2E] p-5 sm:p-6 mb-8 relative max-w-2xl">
-              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400"></div>
-              <div className="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-b-2 border-l-2 border-cyan-400"></div>
+            <div className="bg-[#0D1017]/80 backdrop-blur-md border border-[#1A1F2E] p-5 sm:p-6 mb-8 relative max-w-2xl group hover:border-cyan-500/30 transition-all shadow-xl">
+              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 border-t-2 border-r-2 border-cyan-400 group-hover:shadow-[2px_-2px_8px_rgba(0,240,255,0.4)] transition-all"></div>
+              <div className="absolute -bottom-1 -left-1 w-2.5 h-2.5 border-b-2 border-l-2 border-cyan-400 group-hover:shadow-[-2px_2px_8px_rgba(0,240,255,0.4)] transition-all"></div>
               <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
                 {portfolioData.operator.bio}
               </p>
@@ -151,12 +165,7 @@ export default function App() {
           </div>
 
           <div className="lg:col-span-5 flex justify-center order-1 lg:order-2 mb-6 lg:mb-0">
-            <div className="w-full max-w-[280px] sm:max-w-[340px] relative border border-[#1A1F2E] bg-[#0D1017] p-2 sm:p-2.5 shadow-2xl mx-auto">
-              <div className="absolute -top-1.5 -left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-cyan-400"></div>
-              <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 border-t-2 border-r-2 border-cyan-400"></div>
-              <div className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 border-b-2 border-l-2 border-cyan-400"></div>
-              <div className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 border-b-2 border-r-2 border-cyan-400"></div>
-
+            <div className="w-full max-w-[280px] sm:max-w-[340px] relative border border-[#1A1F2E] bg-[#0D1017]/90 backdrop-blur-sm p-2 sm:p-2.5 shadow-[0_0_40px_rgba(0,0,0,0.5)] mx-auto group hover:border-cyan-500/40 transition-all duration-500">
               <div className="bg-[#08090D] border-b border-[#1A1F2E] px-3 sm:px-4 py-2 flex items-center justify-between font-mono text-[10px] sm:text-[11px] text-slate-400 mb-2">
                 <span className="text-cyan-400 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -169,7 +178,7 @@ export default function App() {
                 <img 
                   src="/avatar.jpg" 
                   alt={portfolioData.operator.name}
-                  className="w-full h-full object-cover object-top filter grayscale contrast-110 hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover object-top filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
                 
@@ -236,7 +245,7 @@ export default function App() {
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
-            <div className="lg:col-span-7 bg-[#0D1017] border border-[#1A1F2E] p-6 sm:p-8">
+            <div className="lg:col-span-7 bg-[#0D1017]/80 backdrop-blur-sm border border-[#1A1F2E] p-6 sm:p-8">
               <h3 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wide mb-4 flex items-center gap-2">
                 <span className="text-cyan-400">///</span> Leading Creative Units
               </h3>
@@ -280,7 +289,7 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {portfolioData.solutions.map((sol) => (
-              <div key={sol.id} className="bg-[#0D1017] border border-[#1A1F2E] p-6 sm:p-8 relative group hover:border-cyan-500/40 transition-all">
+              <div key={sol.id} className="bg-[#0D1017]/80 backdrop-blur-sm border border-[#1A1F2E] p-6 sm:p-8 relative group hover:border-cyan-500/40 transition-all">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-mono text-[10px] sm:text-xs font-bold text-cyan-400 bg-cyan-950/50 border border-cyan-800/50 px-2.5 py-1">
                     {sol.id}
@@ -308,91 +317,130 @@ export default function App() {
           </div>
         </section>
 
-        {/* 6. WHAT I DID ON PUBG MOBILE BD */}
+        {/* 6. DATA VIZ: GRAPHS & METRICS */}
         <section id="pubgm" className="scroll-mt-24">
           <div className="flex items-center gap-3 font-mono text-[10px] sm:text-xs text-cyan-400 uppercase tracking-widest mb-4">
-            <Trophy size={16} /> 03 // PRIMARY ECOSYSTEM
+            <BarChart3 size={16} /> 03 // TELEMETRY GRAPHS
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-8">
             {portfolioData.pubgmBD.headline}
           </h2>
-          <p className="text-slate-400 max-w-3xl mb-8 sm:mb-12 text-sm sm:text-base">
-            Managing marketing campaigns, localization, creative direction, and community operations for the premier mobile battle royale title in Bangladesh.
-          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
             {portfolioData.pubgmBD.metrics.map((m, idx) => (
-              <div key={idx} className="bg-[#0D1017] border border-[#1A1F2E] p-5 sm:p-6 relative">
-                <div className="font-mono text-[9px] sm:text-[10px] text-cyan-400 border border-cyan-800/40 bg-cyan-950/30 px-2 py-0.5 inline-block mb-3 sm:mb-4">
-                  {m.tag}
+              <div key={idx} className="bg-[#0D1017]/80 backdrop-blur-sm border border-[#1A1F2E] p-6 relative group hover:bg-[#111520] transition-all hover:border-[#2A3143] shadow-lg overflow-hidden">
+                {/* Animated CSS Bar Chart Background */}
+                <div className="absolute bottom-0 left-0 h-1 bg-[#1A1F2E] w-full">
+                  <div className={`h-full ${m.chartColor} animate-grow shadow-[0_0_10px_currentColor]`} style={{ width: m.chartWidth }}></div>
                 </div>
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter mb-1 sm:mb-2">
+
+                <div className="flex justify-between items-start mb-4">
+                  <div className={`font-mono text-[9px] sm:text-[10px] border border-current bg-opacity-10 px-2 py-0.5 ${m.tag === 'ORGANIC' ? 'text-purple-400' : m.tag === 'VERIFIED' ? 'text-emerald-400' : m.tag === 'BENCHMARK' ? 'text-amber-400' : 'text-cyan-400'}`}>
+                    {m.tag}
+                  </div>
+                  <span className="font-mono text-[10px] text-slate-500">{m.chartWidth} MAX</span>
+                </div>
+                <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-2 group-hover:scale-[1.02] origin-left transition-transform">
                   {m.metric}
                 </div>
-                <div className="font-bold text-slate-200 text-xs sm:text-sm uppercase tracking-wide mb-2">
-                  {m.label}
-                </div>
-                <div className="font-mono text-[10px] sm:text-xs text-slate-500 leading-relaxed">
-                  {m.context}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            {portfolioData.pubgmBD.pillars.map((p, idx) => (
-              <div key={idx} className="bg-[#0A0C11] border border-[#1A1F2E] p-5 sm:p-6">
-                <div className="font-mono text-[10px] sm:text-xs text-amber-500 mb-2">{p.code}</div>
-                <h3 className="text-base sm:text-lg font-bold text-white uppercase mb-2 sm:mb-3">{p.title}</h3>
-                <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">{p.desc}</p>
+                <div className="font-bold text-slate-200 text-xs sm:text-sm uppercase tracking-wide mb-2">{m.label}</div>
+                <div className="font-mono text-[10px] sm:text-xs text-slate-500">{m.context}</div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 7. ORGANIC CONTENT LAB */}
-        <section id="organic-lab" className="scroll-mt-24">
-          <div className="flex items-center gap-3 font-mono text-[10px] sm:text-xs text-emerald-400 uppercase tracking-widest mb-4">
-            <Flame size={16} /> 04 // ORGANIC DISTRIBUTION
+        {/* 7. TABLES & ARCHIVES WITH IMAGE PREVIEWS */}
+        <section id="archive" className="scroll-mt-24">
+          <div className="flex items-center gap-3 font-mono text-[10px] sm:text-xs text-amber-500 uppercase tracking-widest mb-4">
+            <Database size={16} /> 04 // ARCHIVE TABLES & PREVIEWS
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
-            {portfolioData.organicLab.title}
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-8">
+            Tactical Operations Ledger
           </h2>
-          <p className="text-slate-400 max-w-3xl mb-8 sm:mb-12 text-sm sm:text-base">
-            {portfolioData.organicLab.subtitle}
-          </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-            {portfolioData.organicLab.studies.map((study, idx) => (
-              <div key={idx} className="bg-[#0D1017] border border-[#1A1F2E] p-6 sm:p-8 flex flex-col justify-between relative group hover:border-emerald-500/40 transition-all">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-[10px] sm:text-xs text-slate-500">{study.id}</span>
-                    <span className="font-mono text-[10px] sm:text-xs font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 px-2 py-0.5">
-                      {study.multiplier}
-                    </span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wide mb-4">
-                    {study.format}
-                  </h3>
-                  
-                  <div className="mb-4">
-                    <div className="font-mono text-[10px] sm:text-[11px] text-amber-400 uppercase mb-1">Hook Strategy:</div>
-                    <p className="text-slate-300 text-xs sm:text-sm">{study.hookStrategy}</p>
-                  </div>
-
-                  <div className="mb-6">
-                    <div className="font-mono text-[10px] sm:text-[11px] text-cyan-400 uppercase mb-1">Ideation & Pacing:</div>
-                    <p className="text-slate-400 text-[11px] sm:text-xs leading-relaxed">{study.ideationLogic}</p>
-                  </div>
-                </div>
-
-                <div className="border-t border-[#1A1F2E] pt-4 font-mono text-[11px] sm:text-xs text-slate-300 flex items-start gap-2">
-                  <CheckCircle2 size={14} className="text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="leading-relaxed">{study.result}</span>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+            
+            {/* PROJECTS TABLE (Shows 6) */}
+            <div className="bg-[#0D1017]/60 backdrop-blur-sm border border-[#1A1F2E] rounded-sm flex flex-col">
+              <div className="border-b border-[#1A1F2E] p-4 bg-[#08090D]/50 flex justify-between items-center">
+                <h3 className="font-bold text-white uppercase flex items-center gap-2"><Trophy size={16} className="text-amber-400" /> Project Deployments</h3>
+                <span className="font-mono text-[10px] text-slate-500">SHOWING 6 OF {portfolioData.archive.projects.length}</span>
               </div>
-            ))}
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-[#1A1F2E] font-mono text-[10px] text-slate-500 bg-[#0A0C11]">
+                      <th className="p-3 font-normal">PREVIEW</th>
+                      <th className="p-3 font-normal">TITLE & CATEGORY</th>
+                      <th className="p-3 font-normal text-right">IMPACT</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-sm">
+                    {portfolioData.archive.projects.slice(0, 6).map((item) => (
+                      <tr key={item.id} className="border-b border-[#1A1F2E] hover:bg-[#1A1F2E]/40 transition-colors group cursor-pointer" onClick={() => openArchive('projects')}>
+                        <td className="p-3 w-16">
+                          <div className="w-12 h-8 bg-[#1A1F2E] rounded overflow-hidden relative">
+                            <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                          </div>
+                        </td>
+                        <td className="p-3">
+                          <div className="font-bold text-slate-200 group-hover:text-cyan-400 transition-colors truncate max-w-[180px] sm:max-w-[250px]">{item.title}</div>
+                          <div className="font-mono text-[10px] text-slate-500">{item.category}</div>
+                        </td>
+                        <td className="p-3 text-right">
+                          <div className="font-mono text-[10px] sm:text-xs text-amber-400 truncate max-w-[80px] sm:max-w-none">{item.metric}</div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <button onClick={() => openArchive('projects')} className="p-4 w-full text-center font-mono text-xs text-cyan-400 hover:bg-cyan-950/20 hover:text-cyan-300 transition-all border-t border-[#1A1F2E] flex items-center justify-center gap-2">
+                See More Projects <ArrowUpRight size={14} />
+              </button>
+            </div>
+
+            {/* CONTENTS TABLE (Shows 6) */}
+            <div className="bg-[#0D1017]/60 backdrop-blur-sm border border-[#1A1F2E] rounded-sm flex flex-col">
+              <div className="border-b border-[#1A1F2E] p-4 bg-[#08090D]/50 flex justify-between items-center">
+                <h3 className="font-bold text-white uppercase flex items-center gap-2"><Flame size={16} className="text-emerald-400" /> Content Ideation</h3>
+                <span className="font-mono text-[10px] text-slate-500">SHOWING 6 OF {portfolioData.archive.contents.length}</span>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-[#1A1F2E] font-mono text-[10px] text-slate-500 bg-[#0A0C11]">
+                      <th className="p-3 font-normal">PREVIEW</th>
+                      <th className="p-3 font-normal">CONTENT FORMAT</th>
+                      <th className="p-3 font-normal text-right">METRIC</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-sm">
+                    {portfolioData.archive.contents.slice(0, 6).map((item) => (
+                      <tr key={item.id} className="border-b border-[#1A1F2E] hover:bg-[#1A1F2E]/40 transition-colors group cursor-pointer" onClick={() => openArchive('contents')}>
+                        <td className="p-3 w-16">
+                          <div className="w-12 h-12 bg-[#1A1F2E] rounded overflow-hidden relative aspect-square">
+                            <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                          </div>
+                        </td>
+                        <td className="p-3">
+                          <div className="font-bold text-slate-200 group-hover:text-emerald-400 transition-colors truncate max-w-[180px] sm:max-w-[250px]">{item.title}</div>
+                          <div className="font-mono text-[10px] text-slate-500">{item.platform} • {item.category}</div>
+                        </td>
+                        <td className="p-3 text-right">
+                          <div className="font-mono text-[9px] sm:text-xs text-emerald-400 font-bold bg-emerald-950/30 px-1.5 sm:px-2 py-1 inline-block border border-emerald-800/30 truncate max-w-[80px] sm:max-w-none">{item.metric}</div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <button onClick={() => openArchive('contents')} className="p-4 w-full text-center font-mono text-xs text-emerald-400 hover:bg-emerald-950/20 hover:text-emerald-300 transition-all border-t border-[#1A1F2E] flex items-center justify-center gap-2">
+                See More Content <ArrowUpRight size={14} />
+              </button>
+            </div>
+
           </div>
         </section>
 
@@ -410,7 +458,7 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {portfolioData.multiGameOps.map((game, idx) => (
-              <div key={idx} className="bg-[#0A0C11] border border-[#1A1F2E] p-6 sm:p-8 flex flex-col justify-between">
+              <div key={idx} className="bg-[#0D1017]/80 backdrop-blur-sm border border-[#1A1F2E] p-6 sm:p-8 flex flex-col justify-between">
                 <div>
                   <div className="font-mono text-[10px] sm:text-xs text-cyan-400 uppercase mb-2">{game.role}</div>
                   <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight mb-4">{game.title}</h3>
@@ -445,7 +493,7 @@ export default function App() {
 
           <div className="space-y-8 sm:space-y-12">
             {portfolioData.caseStudies.map((cs) => (
-              <article key={cs.id} className="border border-[#1A1F2E] bg-[#0D1017]">
+              <article key={cs.id} className="border border-[#1A1F2E] bg-[#0D1017]/80 backdrop-blur-sm shadow-lg">
                 <div className="border-b border-[#1A1F2E] px-4 sm:px-6 py-3 font-mono text-[10px] sm:text-xs text-cyan-400 flex flex-col sm:flex-row sm:flex-wrap justify-between sm:items-center bg-[#08090D] gap-2">
                   <div className="flex items-center gap-3">
                     <span className="font-bold">{cs.id}</span>
@@ -464,12 +512,12 @@ export default function App() {
                   </p>
 
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 mb-8">
-                    <div className="lg:col-span-5 bg-[#08090D] p-5 sm:p-6 border border-[#1A1F2E]">
+                    <div className="lg:col-span-5 bg-[#08090D]/50 p-5 sm:p-6 border border-[#1A1F2E]">
                       <h4 className="font-mono text-[10px] sm:text-xs text-amber-400 uppercase mb-2">The Operational Challenge:</h4>
                       <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">{cs.challenge}</p>
                     </div>
 
-                    <div className="lg:col-span-7 bg-[#08090D] p-5 sm:p-6 border border-[#1A1F2E]">
+                    <div className="lg:col-span-7 bg-[#08090D]/50 p-5 sm:p-6 border border-[#1A1F2E]">
                       <h4 className="font-mono text-[10px] sm:text-xs text-cyan-400 uppercase mb-3">Tactical Execution Blueprint:</h4>
                       <ul className="space-y-3">
                         {cs.execution.map((step, idx) => (
@@ -497,7 +545,7 @@ export default function App() {
 
         {/* 10. DIRECT COMMS & CONTACT TERMINAL */}
         <section id="contact" className="scroll-mt-24 mb-8 sm:mb-16">
-          <div className="border border-cyan-500/40 bg-[#0D1017] p-6 sm:p-12 relative overflow-hidden">
+          <div className="border border-cyan-500/40 bg-[#0D1017]/90 backdrop-blur-md p-6 sm:p-12 relative overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.05)]">
             <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400"></div>
             <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400"></div>
 
@@ -540,6 +588,51 @@ export default function App() {
         </div>
       </footer>
 
+      {/* GRID OVERLAY MODAL */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
+          <div className="relative w-full max-w-6xl max-h-[90vh] bg-[#0D1017] border border-[#1A1F2E] flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-in fade-in zoom-in duration-200">
+            
+            {/* Modal Header */}
+            <div className="flex justify-between items-center p-4 sm:p-6 border-b border-[#1A1F2E] bg-[#08090D]">
+              <div className="flex items-center gap-4">
+                <button onClick={() => setModalView('projects')} className={`font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 sm:px-4 py-2 ${modalView === 'projects' ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30' : 'text-slate-500 hover:text-slate-300'}`}>Projects ({portfolioData.archive.projects.length})</button>
+                <button onClick={() => setModalView('contents')} className={`font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 sm:px-4 py-2 ${modalView === 'contents' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'text-slate-500 hover:text-slate-300'}`}>Contents ({portfolioData.archive.contents.length})</button>
+              </div>
+              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 bg-[#1A1F2E] p-2 rounded hover:bg-red-500/20 hover:text-red-400 transition-colors">
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Grid Body */}
+            <div className="p-4 sm:p-6 overflow-y-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {(modalView === 'projects' ? portfolioData.archive.projects : portfolioData.archive.contents).map((item) => (
+                  <div key={item.id} className="group bg-[#0A0C11] border border-[#1A1F2E] hover:border-cyan-500/40 transition-all flex flex-col h-full overflow-hidden relative cursor-pointer">
+                    <div className="w-full aspect-video bg-[#1A1F2E] overflow-hidden relative">
+                      <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-md px-2 py-1 font-mono text-[9px] text-white z-10 border border-[#1A1F2E]">
+                        {item.date}
+                      </div>
+                      <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0C11] via-transparent to-transparent opacity-80"></div>
+                    </div>
+                    <div className="p-4 flex flex-col flex-grow">
+                      <div className="font-mono text-[9px] text-slate-500 mb-1">{item.id} • {item.category}</div>
+                      <h4 className="font-bold text-slate-200 text-sm mb-3 group-hover:text-cyan-400 transition-colors leading-snug">{item.title}</h4>
+                      <div className="mt-auto flex justify-between items-end">
+                        <div className={`font-mono text-[10px] font-bold inline-block px-2 py-1 border ${modalView === 'projects' ? 'text-amber-400 border-amber-900/30 bg-amber-950/20' : 'text-emerald-400 border-emerald-900/30 bg-emerald-950/20'}`}>
+                          {item.metric}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
