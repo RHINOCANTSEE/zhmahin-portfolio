@@ -86,7 +86,7 @@ export default function App() {
           </button>
         </div>
 
-        {/* Floating Mobile Dropdown - FIXED FOR MOBILE */}
+        {/* Floating Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden absolute top-16 left-0 w-full bg-[#08090D]/95 backdrop-blur-xl border-b border-[#1A1F2E] px-4 py-6 font-mono text-xs uppercase tracking-wider flex flex-col gap-4 shadow-2xl z-50">
             <a onClick={() => setMobileMenuOpen(false)} href="#about" className="text-slate-300 hover:text-cyan-400 py-2 border-b border-[#1A1F2E]/50">Who Am I?</a>
@@ -139,7 +139,7 @@ export default function App() {
               </p>
             </div>
 
-            {/* MOBILE FIXED BUTTONS: Stack horizontally on desktop, vertically full-width on mobile */}
+            {/* MOBILE FIXED BUTTONS */}
             <div className="flex flex-col sm:flex-row gap-4 font-mono text-xs">
               <a href="#contact" className="bg-cyan-500 text-[#08090D] border border-cyan-400 px-6 py-3.5 font-bold hover:bg-cyan-400 transition-all flex justify-center items-center gap-2 uppercase tracking-wider shadow-lg shadow-cyan-500/10 focus-visible:outline-cyan-400 w-full sm:w-auto">
                 <Terminal size={16} /> Deploy Strategy Call
@@ -188,7 +188,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* 3. DUAL SEAMLESS INFINITE MARQUEES - MOBILE FIXED */}
+        {/* 3. DUAL SEAMLESS INFINITE MARQUEES */}
         <section className="border-y border-[#1A1F2E] py-4 sm:py-6 bg-[#0A0C11] overflow-hidden space-y-6 sm:space-y-4 marquee-container">
           
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">

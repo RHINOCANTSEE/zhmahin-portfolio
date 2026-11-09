@@ -1,8 +1,6 @@
 ﻿/**
  * @file portfolioData.ts
  * @description Centralized data layer for Zahidul Hasan Mahin's Executive Digital Portfolio.
- * Defines strictly typed structures for identity, telemetry, multi-game operations,
- * organic ideation studies, and case records.
  */
 
 export interface MetricItem {
@@ -15,7 +13,7 @@ export interface MetricItem {
 export interface PillarItem {
   code: string;
   title: string;
-  desc: string;
+  desc: string; 
 }
 
 export interface IdeationStudy {
@@ -177,20 +175,20 @@ export const portfolioData: PortfolioSchema = {
       {
         metric: "170M+",
         label: "Peak Regional Reach",
-        context: "Aggregate campaign and seasonal tournament audience footprint[cite: 15]",
-        tag: "AUDITED[cite: 15]"
+        context: "Aggregate campaign and seasonal tournament audience footprint",
+        tag: "AUDITED"
       },
       {
         metric: "1B+",
         label: "Lifetime Views",
-        context: "Across short-form reels, match highlights, and live broadcasts[cite: 15]",
-        tag: "VERIFIED[cite: 15]"
+        context: "Across short-form reels, match highlights, and live broadcasts",
+        tag: "VERIFIED"
       },
       {
         metric: "3,000%",
         label: "Conversion Lift",
-        context: "Optimized deep-link routing for team registrations[cite: 15]",
-        tag: "BENCHMARK[cite: 15]"
+        context: "Optimized deep-link routing for team registrations",
+        tag: "BENCHMARK"
       },
       {
         metric: "450K+",
@@ -287,40 +285,40 @@ export const portfolioData: PortfolioSchema = {
       title: "PMNC Bangladesh Fall 2026 // Grand Finals & Roadshow",
       period: "August – September 2026",
       overview: "Managed the social command desk, live broadcast graphics, FMVP announcements, and the on-ground branded trophy van roadshow across Dhaka.",
-      challenge: "Pre-tournament fatigue was causing lower organic engagement for early bracket stages. Community players felt disconnected from remote studio broadcasts[cite: 16].",
+      challenge: "Pre-tournament fatigue was causing lower organic engagement for early bracket stages. Community players felt disconnected from remote studio broadcasts.",
       execution: [
         "Constructed a branded PMNC Mobile Roadshow van featuring the official championship trophy, spin-wheel giveaways, and on-ground selfie challenges across Dhaka neighborhoods.",
         "Established an agile social asset pipeline delivering FMVP graphics, match summaries, and bracket standings within 8 minutes of match conclusion.",
         "Distributed exclusive physical merchandise to drive viral fan advocacy."
       ],
       metrics: [
-        { label: "Peak Concurrent Viewers", value: "3x vs Prior Regional[cite: 16]" },
-        { label: "Chat Engagement", value: "+45% Real-Time Lift[cite: 16]" },
-        { label: "Asset Turnaround Speed", value: "<8 Min Post-Match" }
+        { label: "Peak Concurrent Viewers", value: "3x Lift" },
+        { label: "Chat Engagement", value: "+45% Lift" },
+        { label: "Asset Turnaround Speed", value: "<8 Min" }
       ]
     },
     {
       id: "CASE-02",
       badge: "CSR & GRASSROOTS ACTIVATION",
-      title: "Operation Green Winter & Bondhu Adda Season 1 & 2",
+      title: "Operation Green Winter & Bondhu Adda",
       period: "Winter 2025 – Late 2026",
-      overview: "Bridged digital gaming communities and real-world impact through an environmental CSR initiative alongside the Bondhu Adda nationwide player meetup network[cite: 16, 17].",
+      overview: "Bridged digital gaming communities and real-world impact through an environmental CSR initiative alongside the Bondhu Adda nationwide player meetup network.",
       challenge: "Esports players are often stereotyped as exclusively indoor and disengaged from community service and physical social interaction.",
       execution: [
-        "Engineered offline campus activations paired with in-game CSR challenges: coordinated tree planting with NGO partners and distributed 300 t-shirts, 300 water bottles, and 1,000 keyrings.",
-        "Scaled Bondhu Adda from a local Dhaka pilot to a nationwide multi-city gathering for players and casters[cite: 17].",
+        "Engineered offline campus activations paired with in-game CSR challenges: coordinated tree planting with NGO partners and distributed merch.",
+        "Scaled Bondhu Adda from a local Dhaka pilot to a nationwide multi-city gathering for players and casters.",
         "Focused on authentic player community connections and direct player appreciation."
       ],
       metrics: [
-        { label: "Physical Merch Distributed", value: "1,600+ Units" },
-        { label: "Bondhu Adda Participants", value: "10,000+ Nationwide[cite: 17]" },
-        { label: "Player Sentiment Rating", value: "98% Positive" }
+        { label: "Physical Merch Distributed", value: "1,600+" },
+        { label: "Bondhu Adda Participants", value: "10,000+" },
+        { label: "Player Sentiment Rating", value: "98%" }
       ]
     },
     {
       id: "CASE-03",
       badge: "F&B BRAND COLLABORATION",
-      title: "PUBG MOBILE BD x Chillox // Victory Meal Partnership",
+      title: "PUBG MOBILE BD x Chillox",
       period: "Fall 2026",
       overview: "Architected a strategic brand collaboration proposal with burger chain Chillox across 10 Dhaka branches, linking Chicken Dinners with real-world dining discounts.",
       challenge: "Traditional gaming sponsorships feel intrusive. The collaboration needed to feel like an authentic reward for player achievement.",
@@ -331,8 +329,8 @@ export const portfolioData: PortfolioSchema = {
       ],
       metrics: [
         { label: "Retail Branches Activated", value: "10 Locations" },
-        { label: "Partner Conversion Rate", value: "+28% Redemptions" },
-        { label: "Community Reception", value: "Trended #1 in Groups" }
+        { label: "Partner Conversion Rate", value: "+28%" },
+        { label: "Community Reception", value: "Trended #1" }
       ]
     }
   ]
